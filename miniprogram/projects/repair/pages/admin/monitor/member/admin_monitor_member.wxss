@@ -1,0 +1,118 @@
+@import '../../../../../../style/public/admin.wxss';
+
+.main-admin {
+	width: 100%;
+	background-color: #fff;
+}
+
+.tab {
+	width: 100%;
+}
+
+.member {
+	width: 100%;
+	padding: 20rpx;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	padding-bottom: 100rpx;
+}
+
+.member .item {
+	width: calc((100% - 45rpx) / 4);
+	border: 1rpx solid #ccc;
+	margin-bottom: 20rpx;
+	border-radius: 20rpx;
+	padding: 20rpx 10rpx;
+	display: flex;
+	flex-direction: column;
+	color: #666;
+	text-align: center;
+}
+
+.member .item:nth-child(4n+1),
+.member .item:nth-child(4n+2),
+.member .item:nth-child(4n+3) {
+	margin-right: 15rpx;
+}
+
+.member .item .t {
+	font-size: 28rpx;
+	font-weight: bold;
+	margin-bottom: 10rpx;
+}
+
+.member .item .cate {
+	font-size: 24rpx;
+	color: #bbb;
+	text-align: center;
+}
+
+.member .item.selected .cate {
+	color: #fff
+}
+
+.member .item.selected {
+	border-color: #eee;
+	color: #fff;
+	background-color: var(--blue);
+}
+
+.member .item.cur .t {
+	color: #000
+}
+ 
+
+.btn-task {
+	width: 90%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	font-size: 32rpx;
+	line-height: 2.5;
+	background-color: var(--blue) !important;
+	color: #fff;
+	border-radius: 40rpx;
+	margin-bottom: 60rpx;
+}
+
+.btn-task.button-hover {
+	opacity: .9;
+	transform: scale(0.95, 0.95);
+	position: relative;
+	top: 3rpx;
+	left: 3rpx;
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, .1) inset;
+}
+
+.btn-bottom-task {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+	color: #fff;
+	line-height: 2.6;
+	font-size: 36rpx;
+	background-color: inherit;
+	padding-bottom: 0rpx;
+	/*没有安全区域的手机 */
+	padding-bottom: constant(safe-area-inset-bottom);
+	/*兼容有安全区域的手机*/
+	padding-bottom: env(safe-area-inset-bottom);
+	display: flex;
+	z-index: 99999;
+}
+
+.btn-bottom-task>view {
+	width: 50%;
+}
+
+.btn-bottom-task .return {
+	background-color: var(--taskRedColor);
+}
+
+.btn-bottom-task .save {
+	background-color: var(--taskColor);
+}

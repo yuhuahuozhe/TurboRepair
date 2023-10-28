@@ -1,0 +1,6 @@
+@import '../../../../../../style/public/admin.wxss';
+@import 'task_list_inc.wxss';
+page {
+	background-color: #f8f8f8 !important;
+}
+

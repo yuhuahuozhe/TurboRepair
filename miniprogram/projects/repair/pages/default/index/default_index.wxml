@@ -1,0 +1,37 @@
+<view class="main">
+	<view class="top">
+		<image mode="widthFix" src="../../../images/home.jpg" class="loading" />
+	</view>
+
+	<view class="box">
+		<view class="inner">
+
+			<view class="item" bindtap="url" data-type="relaunch" data-url="../../news/index/news_index">
+				<text class="ix icon-form"></text>
+				<view class="title">通知公告</view>
+			</view>
+
+			<view class="item" bindtap="url" data-type="relaunch" data-url="../../task/add/task_add">
+				<text class="ix icon-repair"></text>
+				<view class="title">马上报修</view>
+			</view>
+
+			<view class="item"  bindtap="url" data-type="relaunch" data-url="../../task/my_list/task_my_list">
+				<text class="ix icon-list"></text>
+				<view class="title">我的工单</view>
+			</view>
+
+			<view class="item" bindtap="url" data-type="relaunch" data-type="relaunch" data-url="../../my/index/my_index">
+				<text class="ix icon-people"></text>
+				<view class="title">个人中心</view>
+			</view>
+		</view>
+
+	</view>
+
+</view>
+
+<block wx:if="{{skin.IS_SUB}}">
+	<import src="../../tpls/menu_tpl.wxml" />
+	<template is="menuTpl" data="{{curMenu:'default_index',returnHome:false}}" />
+</block>

@@ -1,0 +1,71 @@
+<block wx:if="{{isAdmin&&isLoad}}">
+	<cmpt-comm-list source='admin' type="admin-member" search="{{search||''}}" _menus="{{sortMenus}}" _items="{{sortItems}}" route="admin/member_list" sortMenusDefaultIndex="0" topBottom="50" placeholder="搜索姓名，手机" bind:list="bindCommListCmpt">
+
+		<view slot="searchEnd">
+			<button bindtap="url" data-url="../add/admin_member_add" class="btn radius bg-admin text-white  margin-right-s"><text class="icon-roundadd margin-right-xxs"></text>添加{{MEMBER_NAME}}</button>
+		</view>
+
+		<!-- List Begin -->
+		<view class="admin-comm-list">
+			<view wx:if="{{dataList && dataList.total }}" class="load text-grey">共有{{dataList.total}}条符合条件记录 </view>
+
+			<view class="item" wx:for="{{dataList.list}}" wx:key="key">
+				<view class="no">{{index+1}}</view>
+				<view class="header">
+					<view class="left text-cut">姓名: {{item.MEMBER_TITLE}}
+					</view>
+					<view class="right">
+					</view>
+				</view>
+
+				<view class="info">
+					<view class="info-item">
+						<view class="title">状态</view>
+						<view class="mao">：</view>
+						<view class="content">
+							<text wx:if="{{item.MEMBER_STATUS==9}}" class="text-red">停用</text>
+							<text wx:elif="{{item.MEMBER_STATUS==1}}" class="text-green">正常</text>
+						</view>
+					</view>
+
+					<view wx:if="{{cateIdOptions.length>1}}" class="info-item">
+						<view class="title">分类</view>
+						<view class="mao">：</view>
+						<view class="content">【{{item.MEMBER_CATE_NAME}}】</view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">登录手机</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.MEMBER_PHONE}}</view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">添加时间</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.MEMBER_ADD_TIME}}</view>
+					</view>
+
+					<view class="oprt">
+						<view bindtap="url" data-url="../edit/admin_member_edit?id={{item._id}}" class="btn margin-right-s" style="width: 250rpx;"><text class="icon-edit margin-right-xxs text-blue"></text>修改&密码设定</view>
+
+						<view bindtap="bindStatusSelectTap" data-id="{{item._id}}" class="btn   margin-right-s"><text class="icon-cascades margin-right-xxs text-red"></text>状态</view>
+
+
+						<view bindtap="bindDelTap" data-id="{{item._id}}" class="btn   margin-right-s"><text class="icon-delete margin-right-xxs text-orange"></text>删除</view>
+
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- List END -->
+
+		<!--load begin-->
+		<import src="../../../../../../tpls/public/list_load_tpl.wxml" />
+		<template is="listLoadTpl" data="{{skin:'text-grey',dataList}}" />
+		<!--load end-->
+
+
+	</cmpt-comm-list>
+
+</block>

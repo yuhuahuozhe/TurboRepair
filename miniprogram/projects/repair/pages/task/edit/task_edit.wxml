@@ -1,0 +1,82 @@
+<view wx:if="{{isLoad===null}}" class="margin-top load notexist text-l load-project"></view>
+<view wx:if="{{isLoad===false}}" class="margin-top load loading text-l load-project"></view>
+
+<block wx:if="{{isLoad&&isLogin}}">
+	<view class="main padding-project">
+
+		<view class="task-info">
+			<block wx:if="{{task.TASK_STATUS==0}}">
+				<text class="icn icon-warnfill"></text>
+				<text class="txt">等待安排工作人员</text>
+			</block>
+			<block wx:elif="{{task.TASK_STATUS==1}}">
+				<text class="icn icon-timefill"></text>
+				<text class="txt">已派工，待处理</text>
+			</block>
+			<block wx:elif="{{task.TASK_STATUS==2}}">
+				<text class="icn icon-repairfill"></text>
+				<text class="txt">工作人员处理中...</text>
+			</block>
+			<block wx:elif="{{task.TASK_STATUS==9}}">
+				<text class="icn icon-roundcheckfill"></text>
+				<text class="txt">已完成</text>
+			</block>
+		</view>
+
+		<view class="steps">
+			<view class="item">
+				<view class="status">
+					<text wx:if="{{task.TASK_STATUS>=0}}" class="check icon-roundcheckfill status"></text>
+					<text wx:else class="status num">1</text>
+				</view>
+				<view class="txt">待派工</view>
+			</view>
+			<view class="item">
+				<view class="status">
+					<text wx:if="{{task.TASK_STATUS>=1}}" class="check icon-roundcheckfill status"></text>
+					<text wx:else class="status num">2</text>
+				</view>
+				<view class="txt">已派工待处理</view>
+			</view>
+			<view class="item">
+				<view class="status">
+					<text wx:if="{{task.TASK_STATUS>=2}}" class="check icon-roundcheckfill status"></text>
+					<text wx:else class="status num">3</text>
+				</view>
+				<view class="txt">处理中</view>
+			</view>
+			<view class="item">
+				<view class="status">
+					<text wx:if="{{task.TASK_STATUS>=9}}" class="check icon-roundcheckfill status"></text>
+					<text wx:else class="status num">4</text>
+				</view>
+				<view class="txt">已完成</view>
+			</view>
+		</view>
+
+		<view class="article-box"> 
+
+			<view class="form-box card-project shadow-project margin-top"> 
+				<view class="flow" wx:for="{{task.taskLogList}}" wx:key="k">
+					<text><text class="time margin-right-xs">{{item.time}}</text>{{item.desc}}</text>
+					<view class="img" wx:if="{{item.img.length>0}}">
+						<image wx:for="{{item.img}}" wx:for-item="itm" wx:key="key1" bindtap="url" data-type="image" data-url="{{itm}}" src="{{itm}}" mode="aspectFill" class="loading" show-menu-by-longpress="{{true}}" />
+					</view>
+				</view>
+			</view>
+
+			<view class="form-box card-project shadow-project margin-top"> 
+				<cmpt-form-show wx:if="{{fields}}" doShow="{{task.TASK_STATUS>0}}" isConfirm="{{false}}" isCacheMatch="{{true}}" id="task-form-show" mark="task-form-show" forms="{{task.TASK_FORMS||[]}}" fields="{{fields}}" bind:submit="bindSubmitCmpt" />
+			</view>
+			<!-- form content end -->
+
+		</view>
+
+		<button wx:if="{{!task||task.TASK_STATUS===0}}" bindtap="bindCheckTap" class="btn-base btn-project shadow" style="margin-bottom:100rpx;">提交</button>
+
+		<button wx:if="{{task.TASK_STATUS===9}}" bindtap="url" data-url="../comment/task_comment?id={{id}}" class="btn-base btn-project shadow" style="margin-bottom:100rpx;">去评价</button>
+		<view style="height: 100rpx;"></view>
+
+	</view> 
+
+</block>

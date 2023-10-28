@@ -1,0 +1,19 @@
+<block wx:if="{{isAdmin&&isLoad}}">
+	<cmpt-comm-list _params="{{_params}}" source='admin' type="admin-task-list" search="{{search}}" _menus="{{sortMenus}}" _items="{{sortItems}}" pulldownType="{{['modal','modal','modal']}}" route="admin/task_list" sortMenusDefaultIndex="0" topBottom="50" placeholder="搜索联系人,手机,地点,工作人员" bind:list="bindCommListCmpt">
+
+		<view slot="searchEnd">
+			<button bindtap="url" data-url="../export/admin_task_export?condition={{dataList.condition}}&cateId={{cateId}}" class="btn mid radius bg-admin text-white margin-right-s"><text class="icon-down margin-right-xxs"></text>导出数据</button>
+		</view>
+
+		<include src="task_list_inc.wxml" />
+
+		<!--load begin-->
+		<import src="../../../../../../tpls/public/list_load_tpl.wxml" />
+		<template is="listLoadTpl" data="{{skin:'text-grey',dataList}}" />
+		<!--load end-->
+
+
+	</cmpt-comm-list>
+
+
+</block>

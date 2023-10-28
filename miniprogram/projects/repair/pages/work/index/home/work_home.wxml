@@ -1,0 +1,81 @@
+<view wx:if="{{!isLoad}}" class="margin-top load loading text-l text-work"></view>
+
+<view class="main-work" wx:if="{{isLoad && isWork}}">
+
+	<view class="work-info bg-work shadow">
+		<view class="pic">
+			<image mode="aspectFill" class="loading" src="{{info.pic||'../../../../images/work.png'}}" />
+		</view>
+		<view class="right">
+			<view class="name">
+				<text class="text-xl">{{work.name}}</text>
+				<text wx:if="{{work.cateId==1}}" class="cate bg-purple">{{work.cateName}}</text>
+				<text wx:elif="{{work.cateId==2}}" class="cate bg-orange">{{work.cateName}}</text>
+				<text wx:elif="{{work.cateId==3}}" class="cate bg-pink">{{work.cateName}}</text>
+				<text wx:else class="cate radius">{{work.cateName}}</text>
+			</view>
+			<view wx:if="{{work.cnt}}" class="desc text-s">共登录{{work.cnt}}次，上次{{work.last}}</view>
+			<view wx:else class="desc text-s">首次登录~</view>
+		</view>
+		<view class="exit-work" bindtap="bindExitTap"><text class="icon-exit"></text></view>
+	</view>
+
+
+	<view class="mid">
+		<view class="main-menu shadow" style="margin-top:30rpx">
+			<view class="title"><text class="icon-title"></text>报修工单管理</view>
+			<view class="inner">
+				<view class="item" bindtap="url" data-url="../../task/list/work_task_list?status=99">
+					<view class="ico">
+						<text class="icon-formfill text-grey"></text>
+					</view>
+					<view class="desc">全部工单</view>
+				</view>
+				<view class="item" bindtap="url" data-url="../../task/list/work_task_list?status=1">
+					<view class="ico">
+						<view wx:if="{{info.taskStat}}" class="status bg-red">{{info.taskStat.apptTaskCnt}}</view>
+						<text class="icon-timefill text-red"></text>
+					</view>
+					<view class="desc">待处理</view>
+				</view>
+				<view class="item" bindtap="url" data-url="../../task/list/work_task_list?status=2">
+					<view class="ico">
+						<view wx:if="{{info.taskStat}}" class="status bg-blue light">{{info.taskStat.runTaskCnt}}</view>
+						<text class="icon-repairfill text-blue"></text>
+					</view>
+					<view class="desc">处理中</view>
+				</view>
+				<view class="item" bindtap="url" data-url="../../task/list/work_task_list?status=9">
+					<view class="ico">
+						<view wx:if="{{info.taskStat}}" class="status bg-green light">{{info.taskStat.overTaskCnt}}</view>
+						<text class="icon-roundcheckfill text-green"></text>
+					</view>
+					<view class="desc">已完成</view>
+				</view>
+			</view>
+
+
+		</view> 
+		 
+
+		<view class="main-menu shadow" style="margin-top:30rpx">
+         
+			<view class="inner">
+				<view class="item" bindtap="url" data-url="../pwd/work_pwd">
+					<view class="ico">
+						<text class="icon-edit"></text>
+					</view>
+					<view class="desc">修改密码</view>
+				</view>
+			</view>
+
+		</view>
+ 
+
+		<view bindtap="bindExitTap" class="btn-work btn-exit shadow" style="border-radius:20rpx">退出登录</view>
+
+	</view>
+
+
+	<view style="height:150rpx;"></view>
+</view>

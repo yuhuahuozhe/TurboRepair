@@ -1,0 +1,52 @@
+<!-- List Begin -->
+<view class="task-list">
+	<view wx:if="{{dataList && dataList.total }}" class="load text-grey">共有{{dataList.total}}条符合条件记录 </view>
+
+	<view class="item shadow" wx:for="{{dataList.list}}" wx:key="key">
+		<view class="no">{{index+1}}</view>
+		<view class="title">
+			<image src="../../../../images/repair.png" />{{item.TASK_OBJ.type}}
+			<text wx:if="{{item.TASK_TYPE==1}}" class="type">后台录入</text>
+		</view>
+		<view wx:if="{{item.TASK_STATUS==0}}" class="status bg-orange light">待派工</view>
+		<view wx:elif="{{item.TASK_STATUS==1}}" class="status bg-red light">已派工，待处理</view>
+		<view wx:elif="{{item.TASK_STATUS==2}}" class="status bg-blue light">处理中</view>
+		<view wx:elif="{{item.TASK_STATUS==9}}" class="status bg-green light">已完成</view>
+
+		<view class="inner">
+
+			<view class="line">
+				<view class="txt">报修时间：</view>
+				<view class="info">{{item.TASK_ADD_TIME}}</view>
+			</view>
+			<view class="line">
+				<view class="txt">报修人：</view>
+				<view class="info">{{item.TASK_OBJ.person}}</view>
+			</view>
+			<view class="line">
+				<view class="txt">报修地点：</view>
+				<view class="info">{{item.TASK_OBJ.address}}</view>
+			</view>
+			<view class="line">
+				<view class="txt">报修详情：</view>
+				<view class="info">{{item.TASK_OBJ.desc}}</view>
+			</view>
+
+			<view class="line" wx:if="{{item.TASK_STATUS!=0}}">处理人员：<text class="text-grey margin-right-xs">[{{item.TASK_MEMBER_CATE_NAME}}]</text> {{item.TASK_MEMBER_NAME}}</view>
+
+		</view>
+		<view class="oprt" wx:if="{{isAdmin}}">
+			<view wx:if="{{item.TASK_STATUS!=0}}" bindtap="bindStatusTap" data-id="{{item._id}}" data-status="0">设为待派工</view>
+			<view bindtap="url" data-url="../edit/admin_task_edit?id={{item._id}}"><text class="icon-edit"></text>编辑</view>
+			<view bindtap="url" data-url="../detail/admin_task_detail?id={{item._id}}&idx={{index}}" data-id="{{item._id}}">详情&派工</view>
+			<view bindtap="bindDelTap" data-id="{{item._id}}" class="text-grey"><text class="icon-delete"></text>删除</view>
+		</view>
+		<view class="oprt" wx:elif="{{isWork}}">
+			<view bindtap="url" data-url="../detail/work_task_detail?id={{item._id}}">查看详情</view>
+			<view bindtap="url" data-url="../run/work_task_run?id={{item._id}}">设为处理中</view>
+			<view bindtap="url" data-url="../over/work_task_over?id={{item._id}}">设为完成</view>
+
+		</view>
+	</view>
+</view>
+<!-- List END -->

@@ -1,0 +1,8 @@
+@import '../../../admin/task/detail/admin_task_detail.wxss';
+@import '../../../../style/work.wxss';  
+@import '../../../admin/task/detail/task_detail_inc.wxss';
+
+page {
+	--taskColor: #1C9399;
+	--taskColorLight: #2ab2b9;
+}

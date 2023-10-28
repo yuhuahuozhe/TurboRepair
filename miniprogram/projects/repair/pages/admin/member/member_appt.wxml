@@ -1,0 +1,18 @@
+<view wx:if="{{showMemberModal}}" class="modal bottom-modal show">
+	<view class="dialog">
+		<view class="bar bg-white">
+			<view class="action text-blue text-xl">指派工作人员</view>
+			<view class="action text-gray text-xl" bindtap="bindHideMemberModalTap">取消</view>
+		</view>
+		<view class="bg-white tab text-l text-bold text-center solid-bottom padding-top margin-bottom">
+			<view bindtap="bindMemberTabTap" wx:for="{{cateList}}" wx:key="k" class="item text-grey {{item.id==curMemberCateId?'cur text-blue':''}}" data-id="{{item.id}}">{{item.title}}</view>
+		</view>
+
+		<view class="member">
+			<view bindtap="bindMemberApptTap" data-id="{{item._id}}" class="item {{item._id==curMemberId?'selected':''}}" wx:for="{{memberList}}" wx:key="key" wx:if="{{curMemberCateId==item.MEMBER_CATE_ID}}" data-cate="{{item.MEMBER_CATE_NAME}}" data-member="{{item.MEMBER_TITLE}}">
+				<view class="t text-cut">{{item.MEMBER_TITLE}}</view>
+				<view class="cate">{{item.MEMBER_CATE_NAME}}</view>
+			</view> 
+		</view>
+	</view>
+</view>

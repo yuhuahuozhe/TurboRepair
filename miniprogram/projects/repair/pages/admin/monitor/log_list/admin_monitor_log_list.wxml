@@ -1,0 +1,87 @@
+<view wx:if="{{isLoad===null}}" class="margin-top load notexist text-l text-grey"></view>
+<view wx:if="{{isLoad===false}}" class="margin-top load loading text-l text-grey"></view>
+
+
+<block wx:if="{{isAdmin&&isLoad&&_params}}">
+	<cmpt-comm-list _params="{{_params}}" source='admin' type="admin-monitor-log-list" search="{{search||''}}" _menus="{{sortMenus}}" _items="{{sortItems}}" route="admin/monitor_log_list" sortMenusDefaultIndex="0" topBottom="50" placeholder="搜索" bind:list="bindCommListCmpt">
+
+		<view slot="searchEnd">
+
+		</view>
+		<!-- List Begin -->
+		<view class="admin-comm-list">
+			<view wx:if="{{dataList && dataList.total }}" class="load text-grey">共有{{dataList.total}}条符合条件记录</view>
+
+			<view class="item" wx:for="{{dataList.list}}" wx:key="key">
+				<view class="no">{{index+1}}</view>
+
+
+				<view class="info">
+
+					<view class="info-item">
+						<view class="title">巡检路线</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.MONITOR_LOG_MONITOR_TITLE}} </view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">巡检人</view>
+						<view class="mao">：</view>
+						<view class="content">[{{item.member.MEMBER_CATE_NAME}}] {{item.member.MEMBER_TITLE}} </view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">状态</view>
+						<view class="mao">：</view>
+						<view wx:if="{{item.MONITOR_LOG_STATUS==0}}" class="content text-orange"><text class="icon-warn"></text>未巡检</view>
+						<view wx:if="{{item.MONITOR_LOG_STATUS==1}}" class="content text-green"><text class="icon-check"></text>已巡检 </view>
+						<view wx:if="{{item.MONITOR_LOG_STATUS==9}}" class="content text-grey"><text class="icon-pause"></text>无须巡检 </view>
+					</view>
+
+					<view class="info-item">
+						<view class="title">日期</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.MONITOR_LOG_DAY}} <text wx:if="{{day==item.MONITOR_LOG_DAY}}" class="text-red text-bold">【今日】</text></view>
+					</view>
+
+					<view class="info-item" wx:if="{{item.MONITOR_LOG_STATUS==1}}">
+						<view class="title">巡检时间</view>
+						<view class="mao">：</view>
+						<view class="content">{{item.MONITOR_LOG_TIME}} </view>
+					</view>
+
+					<block wx:if="{{item.MONITOR_LOG_STATUS==1}}">
+						<view class="info-item detail">
+							<view class="content">
+								<text>[巡检情况说明] {{item.MONITOR_LOG_OBJ.desc}}</text>
+								<view class="img">
+									<image wx:for="{{item.MONITOR_LOG_OBJ.img}}" wx:for-item="itm" wx:key="key1" bindtap="url" data-type="image" data-url="{{itm}}" src="{{itm}}" mode="aspectFill" class="loading" show-menu-by-longpress="{{true}}" />
+								</view>
+							</view>
+						</view>
+					</block>
+
+					<view class="oprt">
+						<view wx:if="{{item.MONITOR_LOG_STATUS!=0}}" bindtap="bindStatusTap" data-status="0" data-id="{{item._id}}" class="btn round margin-right-s">设为未巡检</view>
+
+						<view wx:if="{{item.MONITOR_LOG_STATUS!=1}}" bindtap="bindStatusTap" data-status="1" data-id="{{item._id}}" class="btn round margin-right-s">设为已巡检</view>
+
+						<view wx:if="{{item.MONITOR_LOG_STATUS!=9}}" bindtap="bindStatusTap" data-status="9" data-id="{{item._id}}" class="btn round margin-right-s">设为无须巡检</view>
+
+						<!--<view  bindtap="bindDelTap"  data-id="{{item._id}}" class="btn round text-orange margin-right-s" style="width: 150rpx;"><text class="icon-delete"></text>删除</view>-->
+					</view>
+				</view>
+			</view>
+
+		</view>
+		<!-- List END -->
+
+		<!--load begin-->
+		<import src="../../../../../../tpls/public/list_load_tpl.wxml" />
+		<template is="listLoadTpl" data="{{dataList,skin:'text-grey'}}" />
+		<!--load end-->
+
+
+	</cmpt-comm-list>
+
+</block>

@@ -1,0 +1,109 @@
+{
+	"pages": [
+		"projects/repair/pages/default/index/default_index",
+		"projects/repair/pages/news/index/news_index",
+		"projects/repair/pages/about/index/about_index",
+		"projects/repair/pages/search/search",
+		"projects/repair/pages/my/index/my_index",
+		"projects/repair/pages/my/reg/my_reg",
+		"projects/repair/pages/my/edit/my_edit",
+		"projects/repair/pages/my/foot/my_foot",
+		"projects/repair/pages/my/fav/my_fav",
+		"projects/repair/pages/news/detail/news_detail",
+		"projects/repair/pages/admin/news/list/admin_news_list",
+		"projects/repair/pages/admin/news/add/admin_news_add",
+		"projects/repair/pages/admin/news/edit/admin_news_edit",
+		"projects/repair/pages/admin/setup/about/admin_setup_about",
+		"projects/repair/pages/admin/setup/about_list/admin_setup_about_list",
+		"projects/repair/pages/admin/setup/qr/admin_setup_qr",
+		"projects/repair/pages/admin/index/home/admin_home",
+		"projects/repair/pages/admin/index/login/admin_login",
+		"projects/repair/pages/admin/content/admin_content",
+		"projects/repair/pages/admin/mgr/log/admin_log_list",
+		"projects/repair/pages/admin/mgr/edit/admin_mgr_edit",
+		"projects/repair/pages/admin/mgr/list/admin_mgr_list",
+		"projects/repair/pages/admin/mgr/add/admin_mgr_add",
+		"projects/repair/pages/admin/mgr/pwd/admin_mgr_pwd",
+		"projects/repair/pages/admin/user/list/admin_user_list",
+		"projects/repair/pages/admin/user/detail/admin_user_detail",
+		"projects/repair/pages/admin/user/export/admin_user_export",
+		"projects/repair/pages/task/add/task_add",
+		"projects/repair/pages/task/my_list/task_my_list",
+		"projects/repair/pages/task/edit/task_edit",
+		"projects/repair/pages/admin/task/list/admin_task_list",
+		"projects/repair/pages/admin/task/detail/admin_task_detail",
+		"projects/repair/pages/admin/task/export/admin_task_export",
+		"projects/repair/pages/admin/member/list/admin_member_list",
+		"projects/repair/pages/admin/member/add/admin_member_add",
+		"projects/repair/pages/admin/member/edit/admin_member_edit",
+		"projects/repair/pages/work/index/home/work_home",
+		"projects/repair/pages/work/index/login/work_login",
+		"projects/repair/pages/work/index/pwd/work_pwd",
+		"projects/repair/pages/work/task/list/work_task_list",
+		"projects/repair/pages/work/task/run/work_task_run",
+		"projects/repair/pages/work/task/detail/work_task_detail",
+		"projects/repair/pages/work/task/over/work_task_over",
+		"projects/repair/pages/admin/task/add/admin_task_add",
+		"projects/repair/pages/admin/task/edit/admin_task_edit",
+		"projects/repair/pages/task/comment/task_comment",
+		"cmpts/public/form/form_set/field/form_set_field",
+		"cmpts/public/form/form_show/content/form_show_content",
+		"pages/test1/test1"
+	],
+	"window": {
+		"backgroundColor": "#f1f1f1",
+		"backgroundTextStyle": "dark",
+		"navigationBarBackgroundColor": "#0055BE",
+		"navigationBarTitleText": "校园报修小程序",
+		"navigationBarTextStyle": "white"
+	},
+	"tabBar": {
+		"custom": false,
+		"backgroundColor": "#FFFFFF",
+		"color": "#999999",
+		"selectedColor": "#0055BE",
+		"list": [
+			{
+				"pagePath": "projects/repair/pages/default/index/default_index",
+				"text": "首页",
+				"iconPath": "/projects/repair/images/tabbar/home.png",
+				"selectedIconPath": "/projects/repair/images/tabbar/home_cur.png"
+			},
+			{
+				"pagePath": "projects/repair/pages/news/index/news_index",
+				"text": "通知公告",
+				"iconPath": "/projects/repair/images/tabbar/news.png",
+				"selectedIconPath": "/projects/repair/images/tabbar/news_cur.png"
+			},
+			{
+				"pagePath": "projects/repair/pages/task/add/task_add",
+				"text": "我要报修",
+				"iconPath": "/projects/repair/images/tabbar/add.png",
+				"selectedIconPath": "/projects/repair/images/tabbar/add_cur.png"
+			},
+			{
+				"pagePath": "projects/repair/pages/task/my_list/task_my_list",
+				"text": "我的工单",
+				"iconPath": "/projects/repair/images/tabbar/task.png",
+				"selectedIconPath": "/projects/repair/images/tabbar/task_cur.png"
+			},
+			{
+				"pagePath": "projects/repair/pages/my/index/my_index",
+				"text": "我的",
+				"iconPath": "/projects/repair/images/tabbar/my.png",
+				"selectedIconPath": "/projects/repair/images/tabbar/my_cur.png"
+			}
+		]
+	},
+	"permission": {
+		"scope.userLocation": {
+			"desc": "获取你当前位置信息用于小程序位置接口的效果展示"
+		}
+	},
+	"usingComponents": {
+		"cmpt-comm-list": "/cmpts/public/list/comm_list_cmpt",
+		"cmpt-picker": "/cmpts/public/picker/picker_cmpt",
+		"cmpt-modal": "/cmpts/public/modal/modal_cmpt"
+	},
+	"sitemapLocation": "sitemap.json"
+}

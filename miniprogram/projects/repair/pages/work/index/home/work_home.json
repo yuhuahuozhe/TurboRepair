@@ -1,0 +1,7 @@
+{
+	"usingComponents": {},
+	"enablePullDownRefresh": true,
+	"navigationBarBackgroundColor": "#1C9399",
+	"navigationBarTextStyle": "white",
+	"navigationBarTitleText": "工作人员平台"
+}

@@ -1,0 +1,65 @@
+<block wx:if="{{isLogin&&isLoad}}">
+	<cmpt-comm-list pulldownType="{{['modal','modal']}}" _params="{{_params}}" type="my-task-list" search="{{search}}" _menus="{{sortMenus}}" _items="{{sortItems}}" route="task/my_list" isTotalMenu="{{true}}" sortMenusDefaultIndex="{{sortMenusDefaultIndex}}" topBottom="120" placeholder="搜索记录" bind:list="bindCommListCmpt">
+
+		<view slot="searchEnd">
+
+		</view>
+
+		<!-- List Begin -->
+		<view class="text-pic-list-box padding-project">
+			<view class="item card-project shadow-project" wx:for="{{dataList.list}}" wx:key="index">
+				<view wx:if="{{item.TASK_STATUS==0}}" class="status-right-top bg-orange">待派工</view>
+				<view wx:elif="{{item.TASK_STATUS==1}}" class="status-right-top bg-red">已派工，待处理</view>
+				<view wx:elif="{{item.TASK_STATUS==2}}" class="status-right-top bg-blue">处理中</view>
+				<view wx:elif="{{item.TASK_STATUS==9}}" class="status-right-top bg-green">已完成</view>
+
+				<view class="title"><image src="../../../images/repair.png" />{{item.TASK_OBJ.type}}</view>
+
+				<view class="author">
+					<view class="txt">报修时间：</view>
+					<view class="info">{{item.TASK_ADD_TIME}}</view>
+				</view>
+				<view class="author">
+					<view class="txt">报修人：</view>
+					<view class="info">{{item.TASK_OBJ.person}}</view>
+				</view>
+				<view class="author">
+					<view class="txt">报修地点：</view>
+					<view class="info">{{item.TASK_OBJ.address}}</view>
+				</view> 
+				<view class="author">
+					<view class="txt">报修详情：</view>
+					<view class="info">{{item.TASK_OBJ.desc}}</view>
+				</view> 
+
+				<view class="data data-button" wx:if="{{isEdit}}">
+					<button wx:if="{{item.TASK_STATUS!=0}}" bindtap="url" data-url="../edit/task_edit?cateId={{cateId}}&id={{item._id}}" class="btn mid bg-gray text-black">查看详情</button>
+					<button wx:else bindtap="url" data-url="../edit/task_edit?cateId={{cateId}}&id={{item._id}}" class="btn mid bg-gray text-black">详情/修改</button>
+
+					<button wx:if="{{item.TASK_STATUS==9}}" bindtap="url" data-url="../comment/task_comment?id={{item._id}}" class="btn mid bg-gray text-black"><text class="icon-comment"></text>去评价</button>
+
+					<button  wx:if="{{item.TASK_STATUS==0}}" bindtap="bindDelTap" data-id="{{item._id}}" class="btn mid bg-grey light"><text class="icon-delete"></text>删除</button>
+
+				</view>
+
+			</view>
+
+			<!--load begin-->
+			<import src="../../../../../tpls/public/list_load_tpl.wxml" />
+			<template is="listLoadTpl" data="{{skin:'load-project',dataList}}" />
+			<!--load end-->
+
+		</view>
+		<!-- List END -->
+
+	</cmpt-comm-list>
+
+
+ 
+
+	<block wx:if="{{skin.IS_SUB}}">
+		<import src="../../tpls/menu_tpl.wxml" />
+		<template is="menuTpl" data="{{curMenu:'my_task',returnHome:false}}" />
+	</block>
+
+</block>

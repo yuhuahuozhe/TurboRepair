@@ -1,0 +1,18 @@
+<view wx:if="{{isLoad===null}}" class="margin-top load notexist text-l text-grey"></view>
+<view wx:if="{{isLoad===false}}" class="margin-top load loading text-l text-grey"></view>
+
+<block wx:if="{{isLoad && isAdmin}}">
+
+	<include src="task_detail_inc.wxml" /> 
+
+	<view class="btn-bottom-task">
+		<button bindtap="bindShowMemberModalTap" class="btn-task   margin-top">{{task.TASK_STATUS==0?'指派工作人员':'重新指派工作人员'}}</button>
+	</view>
+
+
+
+	<!--底部指派窗口 begin-->
+	<include src="../../member/member_appt.wxml" />
+	<!--底部指派窗口 end-->
+
+</block>

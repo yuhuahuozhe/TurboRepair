@@ -1,0 +1,40 @@
+<view class="form-box shadow">
+	<view class="form-group">
+		<view class="title must">姓名</view>
+		<input placeholder="工作人员姓名" placeholder-class="phc" model:value="{{formTitle}}" focus="{{formTitleFocus}}" maxlength="50"></input>
+	</view>
+	<view wx:if="{{formTitleFocus}}" class="hint-desc error">{{formTitleFocus}}</view>
+
+	<view wx:if="{{cateIdOptions.length>1&&isAdmin}}" class="form-group arrow" id="formCateId">
+		<view class="title must">分类</view>
+		<cmpt-picker id="cate-picker" sourceData="{{cateIdOptions}}" bind:select="url" data-type="picker" data-item="formCateId" item="{{formCateId}}"> </cmpt-picker>
+	</view>
+	<view wx:if="{{formCateIdFocus}}" class="hint-desc error">{{formCateIdFocus}}</view>
+
+
+</view>
+
+
+<view id="formPhone" class="form-box shadow" wx:if="{{isAdmin}}">
+	<view class="form-group">
+		<view class="title must">登陆手机</view>
+		<input maxlength="11" type="number" placeholder="请填写登陆手机号码" model:value="{{formPhone}}" focus="{{formPhoneFocus}}"></input>
+	</view>
+	<view wx:if="{{formPhoneFocus}}" class="hint-desc error">{{formPhoneFocus}}</view>
+
+	<view class="form-group text-orange" wx:if="{{isAdmin&&isEdit}}">
+		<text class="icon-info" style="font-size: 24rpx;">不修改密码则保持以下为空</text>
+	</view>
+	<view class="form-group">
+		<view class="title must">登陆密码</view>
+		<input maxlength="30" placeholder="请填写登陆密码" model:value="{{formPassword}}" focus="{{formPasswordFocus}}"></input>
+	</view>
+	<view wx:if="{{formPasswordFocus}}" class="hint-desc error">{{formPasswordFocus}}</view>
+
+</view>
+
+
+<view class="form-box shadow margin-top-xs">
+	<cmpt-form-show id="cmpt-form" mark="cmpt-form" source="admin" isCacheMatch="{{false}}" fields="{{fields}}" forms="{{formForms}}" isDefMatch="{{id?false:true}}">
+	</cmpt-form-show>
+</view>

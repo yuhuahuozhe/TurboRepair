@@ -1,0 +1,9 @@
+{
+	"usingComponents": {
+
+	},
+	"navigationBarBackgroundColor": "#ffffff",
+	"navigationBarTextStyle": "black", 
+	"enablePullDownRefresh": true,  
+	"navigationBarTitleText": "报修详情"
+}

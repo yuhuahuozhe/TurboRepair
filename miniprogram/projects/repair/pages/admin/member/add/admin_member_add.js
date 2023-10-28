@@ -1,0 +1,134 @@
+const AdminBiz = require('../../../../../../comm/biz/admin_biz.js');
+const pageHelper = require('../../../../../../helper/page_helper.js');
+const PublicBiz = require('../../../../../../comm/biz/public_biz.js');
+const cloudHelper = require('../../../../../../helper/cloud_helper.js');
+const validate = require('../../../../../../helper/validate.js');
+const AdminMemberBiz = require('../../../../biz/admin_member_biz.js');
+const projectSetting = require('../../../../public/project_setting.js');
+
+Page({
+
+	/**
+	 * 页面的初始数据
+	 */
+	data: {
+		isLoad: true,
+
+	},
+
+	/**
+	 * 生命周期函数--监听页面加载
+	 */
+	onLoad: async function (options) {
+		if (!AdminBiz.isAdmin(this)) return;
+
+		wx.setNavigationBarTitle({
+			title: projectSetting.MEMBER_NAME + '-添加'
+		});
+
+		this.setData(await AdminMemberBiz.initFormData()); // 初始化表单数据   
+
+
+	},
+
+
+
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady: function () {
+
+	},
+
+	/**
+	 * 生命周期函数--监听页面显示
+	 */
+	onShow: function () { },
+
+	/**
+	 * 生命周期函数--监听页面隐藏
+	 */
+	onHide: function () {
+
+	},
+
+	/**
+	 * 生命周期函数--监听页面卸载
+	 */
+	onUnload: function () {
+
+	},
+
+	/**
+	 * 页面相关事件处理函数--监听用户下拉动作
+	 */
+	onPullDownRefresh: async function () {
+		wx.stopPullDownRefresh();
+	}, 
+
+	bindFormAddSubmit: async function () {
+		pageHelper.formClearFocus(this);
+
+		if (!AdminBiz.isAdmin(this)) return;
+
+		let data = this.data;
+
+
+		data = validate.check(data, AdminMemberBiz.CHECK_FORM, this);
+		if (!data) return;
+
+
+		if (data.phone && data.password.length == 0) {
+			pageHelper.anchor('formPassword', this);
+			return pageHelper.formHint(this, 'formPassword', '请设置登陆密码');
+		}
+
+
+		let forms = this.selectComponent("#cmpt-form").getForms(true);
+		if (!forms) return;
+		data.forms = forms;
+
+		data.cateName = AdminMemberBiz.getCateName(data.cateId);
+
+		try {
+			// 先创建，再上传 
+			let result = await cloudHelper.callCloudSumbit('admin/member_insert', data);
+			let memberId = result.data.id;
+
+			// 图片
+			await cloudHelper.transFormsTempPics(forms, 'member/', memberId, 'admin/member_update_forms');
+
+
+			let callback = async function () {
+				PublicBiz.removeCacheList('admin-member');
+				PublicBiz.removeCacheList('member-list');
+				wx.navigateBack();
+
+			}
+			pageHelper.showSuccToast('添加成功', 2000, callback);
+
+		} catch (err) {
+			console.log(err);
+		}
+
+	},
+
+	url: function (e) {
+		pageHelper.url(e, this);
+	},
+
+
+	bindCateIdSelect: function (e) {
+		this.setData({
+			formCateId: e.detail,
+		});
+		if (e.detail != 1) {
+			this.setData({
+				formPhone: '',
+				formPassword: ''
+			});
+		}
+	}
+
+
+})

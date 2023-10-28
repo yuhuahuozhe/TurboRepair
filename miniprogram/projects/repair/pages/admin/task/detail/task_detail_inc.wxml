@@ -1,0 +1,117 @@
+<view class="main-task">
+		<view class="task-info">
+			<block wx:if="{{task.TASK_STATUS==0}}">
+				<text class="icn icon-warnfill"></text>
+				<text class="txt">等待安排工作人员</text>
+			</block>
+			<block wx:elif="{{task.TASK_STATUS==1}}">
+				<text class="icn icon-timefill"></text>
+				<text class="txt">已派工，待处理</text>
+			</block>
+			<block wx:elif="{{task.TASK_STATUS==2}}">
+				<text class="icn icon-repairfill"></text>
+				<text class="txt">工作人员处理中...</text>
+			</block>
+			<block wx:elif="{{task.TASK_STATUS==9}}">
+				<text class="icn icon-roundcheckfill"></text>
+				<text class="txt">已完成</text>
+			</block>
+		</view>
+
+		<view class="steps">
+			<view class="item">
+				<view class="status">
+					<text wx:if="{{task.TASK_STATUS>=0}}" class="check icon-roundcheckfill status"></text>
+					<text wx:else class="status num">1</text>
+				</view>
+				<view class="txt">待派工</view>
+			</view>
+			<view class="item">
+				<view class="status">
+					<text wx:if="{{task.TASK_STATUS>=1}}" class="check icon-roundcheckfill status"></text>
+					<text wx:else class="status num">2</text>
+				</view>
+				<view class="txt">已派工待处理</view>
+			</view>
+			<view class="item">
+				<view class="status">
+					<text wx:if="{{task.TASK_STATUS>=2}}" class="check icon-roundcheckfill status"></text>
+					<text wx:else class="status num">3</text>
+				</view>
+				<view class="txt">处理中</view>
+			</view>
+			<view class="item">
+				<view class="status">
+					<text wx:if="{{task.TASK_STATUS>=9}}" class="check icon-roundcheckfill status"></text>
+					<text wx:else class="status num">4</text>
+				</view>
+				<view class="txt">已完成</view>
+			</view>
+		</view>
+
+
+		<view class="bg-white tab text-bold text-center solid-bottom tab-info">
+			<view bindtap="bindDetailTap" class="item text-gray {{curDetail=='detail'?'text-blue cur':''}}" data-detail="detail">报修详情</view>
+			<view bindtap="bindDetailTap" class="item text-gray  {{curDetail=='flow'?'text-blue cur':''}}" data-detail="flow">处理流程</view>
+			<view bindtap="bindDetailTap" wx:if="{{task.TASK_TYPE==0&&task.TASK_STATUS==9}}" class="item text-gray  {{curDetail=='comment'?'text-blue cur':''}}" data-detail="comment">用户评价</view>
+		</view>
+
+		<view class="task-detail" wx:if="{{curDetail=='detail'}}">
+			<view class="item">
+				<view class="title">上报时间</view>
+				<view class="info">{{task.TASK_ADD_TIME}} </view>
+			</view>
+			<view class="item {{item.type=='image'?'img':''}}" wx:key="key" wx:for="{{task.TASK_FORMS}}">
+				<view class="title">{{item.title}}</view>
+				<view wx:if="{{item.type=='image'}}" class="detail">
+					<view class="pic" wx:for="{{item.val}}" wx:for-item="itm" wx:key="key1" bindtap="url" data-type="image" data-url="{{itm}}">
+						<text class="no">{{index+1}}</text>
+						<image src="{{itm}}" mode="aspectFill" class="loading" show-menu-by-longpress="{{true}}" />
+					</view>
+				</view>
+				<view wx:elif="{{item.type=='switch'}}" class="detail">{{item.val===true?'是':'否'}} </view>
+				<view wx:elif="{{item.mark=='phone'}}" bindtap="url" data-url="{{item.val}}" data-type="phone" class="content">{{item.val}} <text class="margin-left-xs icon-phone"></text> </view>
+				<view wx:else class="detail">{{item.val}} </view>
+			</view>
+
+		</view>
+
+		<view class="task-detail" wx:if="{{curDetail=='flow'}}">
+			<view class="item" wx:if="{{task.taskLogList.length==0}}">
+				<view class=" detail">暂无处理</view>
+			</view>
+			<view class="item" wx:for="{{task.taskLogList}}" wx:key="key">
+				<view class="detail">
+					<text class="text-grey margin-right-xs">[{{item.time}}]</text>
+					<text>{{item.desc}}</text>
+					<view class="memo" wx:if="{{item.content||item.img.length>0}}">
+						<text>{{item.content}}</text>
+						<view class="img">
+							<image wx:for="{{item.img}}" wx:for-item="itm" wx:key="key1" bindtap="url" data-type="image" data-url="{{itm}}" src="{{itm}}" mode="aspectFill" class="loading" show-menu-by-longpress="{{true}}" />
+						</view>
+					</view>
+				</view>
+
+			</view>
+
+		</view>
+
+	</view>
+
+	<view class="task-detail" wx:if="{{curDetail=='comment'}}">
+		<view class="item">
+			<view wx:if="{{!task.TASK_COMMENT_OBJ.content}}" class="detail">暂无评价</view>
+			<view wx:else class="detail">
+				<text class="text-grey margin-right-xs">{{task.TASK_COMMENT_TIME}} </text>
+				<view class="memo">
+					<text>{{task.TASK_COMMENT_OBJ.content}}</text>
+					<view class="img">
+						<image wx:for="{{task.TASK_COMMENT_OBJ.img}}" wx:for-item="itm" wx:key="key1" bindtap="url" data-type="image" data-url="{{itm}}" src="{{itm}}" mode="aspectFill" class="loading" show-menu-by-longpress="{{true}}" />
+					</view>
+				</view>
+			</view>
+		</view>
+
+	</view>
+
+	<view style="height: 200rpx;"></view>

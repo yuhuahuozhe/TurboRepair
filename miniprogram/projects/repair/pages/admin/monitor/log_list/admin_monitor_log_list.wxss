@@ -1,0 +1,34 @@
+@import '../../../../../../style/public/admin.wxss';
+@import '../../../../../../style/project/admin_list_style.wxss';
+
+page {
+	background-color: #f8f8f8;
+}
+
+ 
+.admin-comm-list .item .info .oprt { 
+    justify-content: space-around;
+}
+
+.admin-comm-list .item .info .oprt .btn {
+    width: 185rpx; 
+}
+
+
+.admin-comm-list .item .info .info-item.detail {
+	padding:10rpx 30rpx; 
+	display: flex;
+	flex-direction: column;
+}
+
+.admin-comm-list .item .info .info-item.detail text{ 
+	color:#999!important;
+	width:100%;
+}
+
+.admin-comm-list .item .info .info-item.detail image{ 
+	border-radius: 5rpx;
+	width:110rpx;
+	height:110rpx;
+} 
+ 
